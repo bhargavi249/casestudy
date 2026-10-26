@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Request received — LeaveFlow</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="success-page">
+<main class="success-wrap">
+
+  <a class="brand success-brand" href="/">
+    <span class="brand-symbol">L<span>.</span></span>
+    <span>leaveflow<small>PEOPLE OPERATIONS</small></span>
+  </a>
+
+  <section class="success-card">
+    <div class="success-icon">✓</div>
+    <div class="success-label">REQUEST PREPARED</div>
+
+    <h1>Thanks, {{ data['employee_name'].split(' ')[0] }}.</h1>
+
+    <p class="success-lead">
+      Your leave request summary is ready.
+      Keep this reference ID for your records.
+    </p>
+
+    <div class="ref-box">
+      <div>
+        <small>REQUEST REFERENCE</small>
+        <strong>{{ request_id }}</strong>
+      </div>
+
+      <button type="button"
+        onclick="navigator.clipboard && navigator.clipboard.writeText('{{ request_id }}').then(() => this.textContent='Copied')">
+        Copy ID
+      </button>
+    </div>
+
+    <div class="pending">
+      <span>◷</span>
+      <div>
+        <b>Pending review</b>
+        <small>
+          This is a demo: the request is not saved to a database
+          or sent to a manager.
+        </small>
+      </div>
+    </div>
+
+    <div class="summary">
+      <div>
+        <small>Employee name</small>
+        <b>{{ data['employee_name'] }}</b>
+      </div>
+
+      <div>
+        <small>Employee ID</small>
+        <b>{{ data['employee_id'] }}</b>
+      </div>
+
+      <div>
+        <small>Department</small>
+        <b>{{ data['department'] }}</b>
+      </div>
+
+      <div>
+        <small>Leave category</small>
+        <b>{{ data['leave_type'] }}</b>
+      </div>
+
+      <div>
+        <small>First day</small>
+        <b>{{ start }}</b>
+      </div>
+
+      <div>
+        <small>Last day</small>
+        <b>{{ end }}</b>
+      </div>
+
+      <div>
+        <small>Duration</small>
+        <b>{{ days }} {{ 'day' if days == 1 else 'days' }}</b>
+      </div>
+
+      <div class="reason-summary">
+        <small>Reason</small>
+        <b>{{ data['reason'] }}</b>
+      </div>
+    </div>
+
+    <div class="success-actions">
+      <a href="/" class="btn btn-main">＋ Make another request</a>
+      <button class="btn btn-quiet" onclick="window.print()">Print summary</button>
+    </div>
+
+    <p class="success-note">
+      For changes or approval updates, please contact your HR team.
+    </p>
+  </section>
+
+  <footer class="success-footer">
+    © 2026 LeaveFlow · Employee self-service demo
+  </footer>
+
+</main>
+</body>
+</html>
